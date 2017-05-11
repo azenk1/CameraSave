@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">CameraSave</string>
+    <string name="camera_name">Open Camera</string>
+    <string name="activity_name">Add Picture Details</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email_hint">Enter Email...</string>
+    <string name="password_hint">Enter Password...</string>
+    <string name="auth_failed">Authorization has failed.</string>
+    <string name="auth">Authorization successful.</string>
+    <string name="create_user">Create User</string>
+    <string name="location_label">Location</string>
+    <string name="picture_label">Picture Name</string>
+    <string name="details_button">Save Picture Details</string>
 </resources>
