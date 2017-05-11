@@ -9,7 +9,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class PictureDataBaseReference
 {
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference pictureRef = database.getReference("message");
+    Picture pictureToUpload = new Picture();
+    FirebaseDatabase pictureDb = FirebaseDatabase.getInstance();
+    DatabaseReference pictureDbRef;
+
+    public PictureDataBaseReference()
+    {
+
+    }
+
 
 }

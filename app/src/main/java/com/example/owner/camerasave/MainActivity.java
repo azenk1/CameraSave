@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         emailET = (EditText) findViewById(R.id.emailET);
         passwordET = (EditText) findViewById(R.id.passwordET);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance()  ;
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -68,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void pictureOnClick(View view)
-    {
+    public void pictureOnClick(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -94,18 +94,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void signInOnClick(View view)
-    {
+    public void signInOnClick(View view) {
+        signInWithEmailAndPassword(emailET.getText().toString(),
+                passwordET.getText().toString());
 
     }
 
-    public void createUserOnClick(View view)
-    {
-        createAccount(emailET.getText().toString(), passwordET.getText().toString());
+    public void createUserOnClick(View view) {
+        createAccount(emailET.getText().toString(),
+                passwordET.getText().toString());
     }
 
-    public void detailsOnClick(View view)
-    {
+    public void detailsOnClick(View view) {
         Intent secondActivityIntent = new Intent(this, PictureActivity.class);
         startActivity(secondActivityIntent);
     }
@@ -140,8 +140,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void createAccount(String email, String password)
-    {
+    private void createAccount(String email, String password) {
         Log.d(TAG, "createAccount:" + email);
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -164,9 +163,30 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         //If user is created successful display success status.
-                        if(task.isSuccessful())
-                        { Toast.makeText(MainActivity.this, R.string.auth,
-                                Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(MainActivity.this, R.string.auth,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+
+    private void signInWithEmailAndPassword(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Toast.makeText(MainActivity.this, R.string.auth_failed,
+                                    Toast.LENGTH_SHORT).show();
                         }
 
                         // ...

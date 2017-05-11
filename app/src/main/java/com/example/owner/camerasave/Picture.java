@@ -9,6 +9,11 @@ public class Picture
     private String location;
     private String name;
 
+    Picture()
+    {
+
+    }
+
     Picture(String location, String name)
     {
         this.location = location;
