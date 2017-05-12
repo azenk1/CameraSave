@@ -11,4 +11,8 @@
     <string name="location_label">Location</string>
     <string name="picture_label">Picture Name</string>
     <string name="details_button">Save Picture Details</string>
+    <string name="location_button">Set Location</string>
+    <string name="save_toast">Picture information has been saved.</string>
+    <string name="location_toast">Location has been set.</string>
+    <string name="firebase_tag">Firebase</string>
 </resources>
